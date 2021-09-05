@@ -10,6 +10,12 @@ namespace DAL.Repositories
 {
     public class HomeworkRepository : IHomeworkRepository
     {
+        private readonly Context _context;
+
+        public HomeworkRepository(Context context)
+        {
+            _context = context;
+        }
         public async Task<int> Add(Homework newHomework)
         {
             throw new NotImplementedException();
