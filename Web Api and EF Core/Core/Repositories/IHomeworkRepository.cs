@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Core.Entites;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.Repositories
 {
-    interface IHomeworkRepository
+  public  interface IHomeworkRepository
     {
+        Task<int> Add(Homework newHomework);
+        Task  Update(Homework homework);
+        Task Delete(int homeworkId);
+        Task<List<Homework>> Get();
+        Task<Homework> Get(int homeworkId);
     }
 }
