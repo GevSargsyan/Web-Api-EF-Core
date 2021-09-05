@@ -10,6 +10,7 @@ namespace BusinessLogic.Services
 {
     public class HomeworkService : IHomeworkService
     {
+        public const string HOMEWORK_IS_INVALID = "Homework is invalid!";
         public async Task<int> Create(Homework homework)
         {
             throw new NotImplementedException();
