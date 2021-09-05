@@ -1,4 +1,6 @@
+using BusinessLogic.Services;
 using Core.Repositories;
+using Core.Services;
 using DAL;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -24,6 +26,7 @@ namespace WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IHomeworkRepository, HomeworkRepository>();
+            services.AddScoped<IHomeworkService, HomeworkService>();
 
             services.AddDbContext<Context>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddControllers();
