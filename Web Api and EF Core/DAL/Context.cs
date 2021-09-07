@@ -17,6 +17,6 @@ namespace DAL
             base.OnModelCreating(modelBuilder);
         }
 
-        DbSet<Homework> Homeworks { get; set; }
+       public DbSet<Homework> Homeworks { get; set; }
     }
 }

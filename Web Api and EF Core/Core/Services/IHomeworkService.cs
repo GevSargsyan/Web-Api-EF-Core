@@ -10,6 +10,8 @@ namespace Core.Services
     public interface IHomeworkService
     {
         Task<int> Create(Homework homework);
-        Task<bool> Delete(int homeworkId);
+        Task<int> Delete(int homeworkId);
+        Task<Homework> Get(int homeworkId);
+        Task<int> Update(Homework homework);
     }
 }

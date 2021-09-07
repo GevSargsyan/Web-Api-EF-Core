@@ -7,9 +7,9 @@ namespace Core.Repositories
   public  interface IHomeworkRepository
     {
         Task<int> Add(Homework newHomework);
-        Task  Update(Homework homework);
-        Task Delete(int homeworkId);
-        Task<List<Homework>> Get();
+        Task<int>  Update(Homework homework);
+        Task<int> Delete(int homeworkId);
+       // Task<List<Homework>> Get();
         Task<Homework> Get(int homeworkId);
     }
 }
