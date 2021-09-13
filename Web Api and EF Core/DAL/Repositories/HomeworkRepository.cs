@@ -1,4 +1,5 @@
-﻿using Core.Entites;
+﻿using AutoMapper;
+using Core.Entites;
 using Core.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,10 +13,12 @@ namespace DAL.Repositories
     public class HomeworkRepository : IHomeworkRepository
     {
         private readonly Context _context;
+        private readonly IMapper _mapper;
 
-        public HomeworkRepository(Context context)
+        public HomeworkRepository(Context context,IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public async Task<int> Add(Homework newHomework)
         {
@@ -24,12 +27,15 @@ namespace DAL.Repositories
                 throw new ArgumentNullException(nameof(newHomework));
             }
 
-            var newHomeworkEntity = new Entities.Homework
-            {
-                Title = newHomework.Title,
-                Description = newHomework.Description,
-                Link = newHomework.Link,
-            };
+            //var newHomeworkEntity = new Entities.Homework
+            //{
+            //    Title = newHomework.Title,
+            //    Description = newHomework.Description,
+            //    Link = newHomework.Link,
+            //};
+
+            var newHomeworkEntity = _mapper.Map<DAL.Entities.Homework>(newHomework);
+
 
             await _context.Homeworks.AddAsync(newHomeworkEntity);
             await _context.SaveChangesAsync();
@@ -60,27 +66,45 @@ namespace DAL.Repositories
             var homework = await _context.Homeworks.FirstOrDefaultAsync(x => x.Id == homeworkId);
             if (homework != null)
             {
-                var homeworkcore = new Core.Entites.Homework
-                {
-                    Title = homework.Title,
-                    Description = homework.Description,
-                    Link = homework.Link,
+                //var homeworkcore = new Core.Entites.Homework
+                //{
+                //    Title = homework.Title,
+                //    Description = homework.Description,
+                //    Link = homework.Link,
 
-                };
+                //};
+
+                var homeworkcore = _mapper.Map<Core.Entites.Homework>(homework);
                 return homeworkcore;
             }
 
             return null;
         }
 
+        public async Task<List<Homework>> Get()
+        {
+            var homeworks = await _context.Homeworks.ToListAsync();
+            if (homeworks != null)
+            {
+                var homeworkscore = _mapper.Map<List<Core.Entites.Homework>>(homeworks);
+
+                return homeworkscore;
+            }
+
+
+            return null;
+        }
+
         public async Task<int> Update(Homework homework)
         {
-            var homeworkforupdate = await _context.Homeworks.FirstOrDefaultAsync(x=>x.Id==homework.Id);
+            var homeworkentity = _mapper.Map<DAL.Entities.Homework>(homework);
+            var homeworkforupdate = await _context.Homeworks.FirstOrDefaultAsync(x=>x.Id== homeworkentity.Id);
             if (homeworkforupdate != null)
             {
-                homeworkforupdate.Title = homework.Title;
-                homeworkforupdate.Description = homework.Description;
-                homeworkforupdate.Link = homework.Link;
+                homeworkforupdate.Title = homeworkentity.Title;
+                homeworkforupdate.Description = homeworkentity.Description;
+                homeworkforupdate.Link = homeworkentity.Link;
+                homeworkforupdate.LessonId = homeworkentity.LessonId;
 
                 await _context.SaveChangesAsync();
                 return homeworkforupdate.Id;

@@ -12,5 +12,7 @@ namespace WebApi.Contracts
         public string Description { get; set; }
         public Uri Link { get; set; }
 
+        public int LessonId { get; set; }
+
     }
 }

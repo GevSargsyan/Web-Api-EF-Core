@@ -12,6 +12,8 @@ namespace Core.Services
         Task<int> Create(Homework homework);
         Task<int> Delete(int homeworkId);
         Task<Homework> Get(int homeworkId);
+        Task<List<Homework>> Get();
+
         Task<int> Update(Homework homework);
     }
 }

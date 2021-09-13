@@ -14,9 +14,14 @@ namespace DAL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new HomeworkConfigruation());
+            modelBuilder.ApplyConfiguration(new GithubAccountConfiguration());
+            modelBuilder.ApplyConfiguration(new MemberConfiguration());
+            modelBuilder.ApplyConfiguration(new LessonConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 
        public DbSet<Homework> Homeworks { get; set; }
+       public DbSet<Member> Members{ get; set; }
+       public DbSet<GithubAccount> GithubAccounts{ get; set; }
     }
 }

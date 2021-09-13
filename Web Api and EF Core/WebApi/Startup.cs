@@ -2,6 +2,7 @@ using BusinessLogic.Services;
 using Core.Repositories;
 using Core.Services;
 using DAL;
+using DAL.Mapping;
 using DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using WebApi.Mapping;
 
 namespace WebApi
 {
@@ -25,6 +27,18 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(cfg =>
+            {
+                //cfg.CreateMap<Contracts.HomeworkCreate, Core.Entites.Homework>();
+                //cfg.CreateMap<Core.Entites.Homework, Contracts.Homework>().ReverseMap();
+                //cfg.CreateMap<Core.Entites.Homework, DAL.Entities.Homework>();
+
+                cfg.AddProfile<ApiMappingProfile>();
+                cfg.AddProfile<DataAccessMappingProfile>();
+
+            });
+
+
             services.AddScoped<IHomeworkRepository, HomeworkRepository>();
             services.AddScoped<IHomeworkService, HomeworkService>();
 

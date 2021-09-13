@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Configurations
 {
-    public class HomeworkConfigruation : IEntityTypeConfiguration<Homework>
+    public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
     {
-        public void Configure(EntityTypeBuilder<Homework> builder)
+        public void Configure(EntityTypeBuilder<Lesson> builder)
         {
             builder.HasKey(x => x.Id);
 
@@ -19,11 +19,12 @@ namespace DAL.Configurations
             builder.Property(x => x.Link).HasMaxLength(500);
             builder.Property(x => x.Description).HasMaxLength(1000);
 
-            builder.HasOne(x => x.Lesson)
-                .WithMany(x => x.Homework)
+            builder.HasMany(x => x.Homework)
+                .WithOne(x => x.Lesson)
                 .HasForeignKey(x => x.LessonId)
                 .OnDelete(DeleteBehavior.NoAction);
-     
+                
+
         }
     }
 }

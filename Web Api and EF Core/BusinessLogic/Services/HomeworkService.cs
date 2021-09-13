@@ -62,6 +62,12 @@ namespace BusinessLogic.Services
            
         }
 
+        public async Task<List<Homework>> Get()
+        {
+            return await _homeworkRepository.Get();
+
+        }
+
         public async Task<int> Update(Homework homework)
         {
             return await _homeworkRepository.Update(homework);
